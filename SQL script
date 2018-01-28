@@ -1,0 +1,109 @@
+Create table Staff (
+staff_id     NUMBER(10),
+Name         varchar2(20)  NOT NULL,
+Address      varchar2(256),
+JobTitle     varchar2(20),
+primary KEY (staff_id)
+);
+
+Create Index Onstaff ON staff (staff_id, Name);
+
+Create table Customer(
+Customer_id    number(10),
+Name           varchar2(20)   NOT NULL,
+CurrentBalance int,
+Primary Key (Customer_id)
+);
+
+Create table CustomerAddress(
+Customer_id    number(10),
+Address        varchar2(256),
+Primary Key (Customer_id, Address),
+Foreign Key (Customer_id) references Customer
+);
+
+Create Index Cusaddress on Customeraddress(Customer_id);
+
+Create table CustomerCreditCardInfo(
+Customer_id    number(10),
+CreditCardno   Char(16),
+Primary Key (Customer_id, CreditCardno),
+Foreign Key (Customer_id) references Customer
+);
+
+Create index cuscreditinfo on Customercreditcardinfo(Customer_id);
+
+Create table Product(
+Product_id     number(10),
+pname          VARCHAR2(20), 
+productsize    int,
+Primary Key (Product_id)
+);
+
+Create table ProductCategory(
+Product_id     NUMBER(10),
+Category       varchar2(20),
+Primary Key (Product_id, Category),
+Foreign Key (Product_id) references Product
+);
+
+Create table ProductType(
+Product_id     number(10),
+Type           varchar2(20),
+Primary Key (Product_id, Type),
+Foreign Key (Product_id) references Product
+);
+
+Create table ProductInfo(
+Product_id     NUMBER(10),
+Info           VARCHAR2(256),
+Primary Key (Product_id, Info),
+Foreign Key (Product_id) references Product
+);
+
+Create table Orders(
+Order_id       number(10),
+CreditCard     char(16)   NOT NULL,
+Quantity       int,
+Issued         Date,
+Sent           Date,
+Recieved       Date,
+Primary Key   (Order_id)
+);
+
+
+Create table  ProductPricing(
+Product_id    number(10),
+Address       varchar(256),
+Cost          Decimal(7,2), 
+Primary Key  (Product_id),
+Foreign Key  (Product_id) references Product
+);
+
+
+Create table Warehouse(
+warehouse_id     NUMBER(10),
+Address          varchar2(256),
+StorageCapacity  FLOAT,
+primary key (warehouse_id)
+);
+
+Create table stock(
+product_id     number(10),
+warehouse_id   number(10),
+quantity       NUMBER(5),
+primary key (product_id,warehouse_id),
+FOREIGN key (product_id) REFERENCES product,
+FOREIGN key (warehouse_id) REFERENCES warehouse
+);
+
+
+Create table Suppliers(
+Supplier_id    NUMBER(20),
+Name           VARCHAR2(20)   NOT NULL,
+Item           VARCHAR2(20)   NOT NULL,
+Address        VARCHAR2(256),
+Price          Decimal(7,2), 
+Primary Key   (Supplier_id)
+);
+

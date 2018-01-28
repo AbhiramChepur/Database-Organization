@@ -1,0 +1,175 @@
+Create table Staff (
+staff_id     NUMBER(10),
+Name         varchar2(20)  NOT NULL,
+Address      varchar2(256),
+JobTitle     varchar2(20),
+primary KEY (staff_id),
+check (staff_id between 1 and 11)
+);
+
+drop table staff
+
+Create Index Onstaff ON staff (staff_id, Name);
+
+Create table Customer(
+Customer_id    number(10),
+Name           varchar2(20)   NOT NULL,
+CurrentBalance int,
+Primary Key (Customer_id)
+);
+
+Create table CustomerAddress(
+Customer_id    number(10),
+Address        varchar2(256),
+Primary Key (Customer_id, Address),
+Foreign Key (Customer_id) references Customer
+);
+
+Create Index Cusaddress on Customeraddress(Customer_id);
+
+Create table CustomerCreditCardInfo(
+Customer_id    number(10),
+CreditCardno   Char(16),
+Primary Key (Customer_id, CreditCardno),
+Foreign Key (Customer_id) references Customer
+);
+
+Create index cuscreditinfo on Customercreditcardinfo(Customer_id);
+
+Create table Product(
+Product_id          number(10),
+pname               VARCHAR2(20), 
+productsize         int,
+Primary Key (Product_id)
+);
+
+Create table ProductCategory(
+Product_id      NUMBER(10),
+Category        varchar2(20),
+Primary Key (Product_id, Category),
+Foreign Key (Product_id) references Product
+);
+
+Create table ProductType(
+Product_id      number(10),
+Type            varchar2(20),
+Primary Key (Product_id, Type),
+Foreign Key (Product_id) references Product
+);
+
+Create table ProductInfo(
+Product_id       NUMBER(10),
+Info             VARCHAR2(256),
+Primary Key (Product_id, Info),
+Foreign Key (Product_id) references Product
+);
+
+Create table Orders(
+Order_id       number(10),
+CreditCard     char(16)   NOT NULL,
+Quantity       int,
+Issued         Date,
+Sent           Date,
+Recieved       Date,
+Primary Key   (Order_id)
+);
+
+
+Create table  ProductPricing(
+Product_id    number(10),
+Address       varchar(256),
+Cost          Decimal(7,2), 
+Primary Key  (Product_id),
+Foreign Key  (Product_id) references Product
+);
+
+
+Create table Warehouse(
+warehouse_id       NUMBER(10),
+Address            varchar2(256),
+StorageCapacity    FLOAT,
+primary key (warehouse_id)
+);
+
+Create table stock(
+product_id     number(10),
+warehouse_id   number(10),
+quantity       NUMBER(5),
+primary key (product_id,warehouse_id),
+FOREIGN key (product_id) REFERENCES product,
+FOREIGN key (warehouse_id) REFERENCES warehouse
+);
+
+
+Create table Suppliers(
+Supplier_id    NUMBER(20),
+Name           VARCHAR2(20)   NOT NULL,
+Item           VARCHAR2(20)   NOT NULL,
+Address        VARCHAR2(256),
+Price          Decimal(7,2), 
+Primary Key   (Supplier_id)
+);
+
+
+create table cart(
+pname varchar2(20) not null,
+quantity number(5) not null,
+price decimal(7,2) not null
+);
+
+insert into customer values(1,'sam',0);
+insert into customer values(2,'abhi',0);
+insert into customer values(3,'suv',0);
+
+insert into product values(1,'milk',5);
+insert into product values(2,'donut',1);
+insert into product values(3,'rice',10);
+insert into product values(4,'bread',3);
+insert into product values(5,'toothbrush',1);
+insert into product values(6,'toothpaste',1);
+insert into product values(7,'softdrink',3);
+insert into product values(8,'beer',3);
+insert into product values(9,'eggs',6);
+insert into product values(10,'oil',8);
+
+insert into productpricing values(1,'il',2.89);
+insert into productpricing values(2,'il',1.89);
+insert into productpricing values(3,'il',7.99);
+insert into productpricing values(4,'il',1.00);
+insert into productpricing values(5,'il',1.09);
+insert into productpricing values(6,'il',2.89);
+insert into productpricing values(7,'il',1.50);
+insert into productpricing values(8,'il',12.89);
+insert into productpricing values(9,'il',1.52);
+insert into productpricing values(10,'il',9.24);
+
+
+insert into PRODUCTTYPE values(1,'Diary');
+insert into PRODUCTTYPE values(2,'Bakery item');
+insert into PRODUCTTYPE values(3,'Food');
+insert into PRODUCTTYPE values(4,'Bakery item');
+insert into PRODUCTTYPE values(5,'Personal Care');
+insert into PRODUCTTYPE values(6,'Personal Care');
+insert into PRODUCTTYPE values(7,'Drinks');
+insert into PRODUCTTYPE values(8,'Drinks');
+insert into PRODUCTTYPE values(9,'Diary');
+insert into PRODUCTTYPE values(10,'Food');
+
+insert into staff values(1,'don','il','admin');
+
+insert into staff values(2,'san','il','admin');
+
+insert into warehouse values(1,'il',100);
+
+insert into stock values(1,1,5);
+insert into stock values(2,1,6);
+insert into stock values(3,1,5);
+insert into stock values(4,1,7);
+insert into stock values(5,1,5);
+insert into stock values(6,1,8);
+insert into stock values(7,1,4);
+insert into stock values(8,1,3);
+insert into stock values(9,1,6);
+insert into stock values(10,1,5);
+
+
